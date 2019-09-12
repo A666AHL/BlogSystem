@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.login_check2.dao.usersMapper">
+    <select id="user" resultType="com.blog.entity.Users">
+        select * from blog_user
+    </select>
+
+    <select id="check" resultType="com.blog.entity.Users">
+        select * from blog_user where username = #{username} and password = #{password} and state = 1
+    </select>
+
+    <update id="updateAvatarUrl">
+        update blog_user set avatar_url = #{avatar_url} where username = #{username}
+    </update>
+
+    <update id="updateSave">
+        update blog_user set username = #{username}, password = #{password}, intro = #{intro} where id = #{id}
+    </update>
+
+    <select id="getAvatarUrl" resultType="String">
+        select avatar_url from blog_user where username = #{username}
+    </select>
+
+    <select id="getIntro" resultType="String">
+        select intro from blog_user where username = #{username}
+    </select>
+
+    <select id="getId" resultType="Integer">
+        select id from blog_user where username = #{username}
+    </select>
+
+    <insert id="register">
+        insert into blog_user(username, password,avatar_url, intro) values (#{username}, #{password}, #{avatar_url},#{intro})
+    </insert>
+
+    <insert id="addUser">
+        insert into blog_user(id, username, password, isadmin, state, avatar_url ) values (#{id}, #{username}, #{password}, #{isadmin}, #{state}, #{avatar_url})
+    </insert>
+
+    <select id="getIsAdmin" resultType="Integer">
+        select isadmin from blog_user where username = #{username}
+    </select>
+
+    <select id="getAllUsers" resultType="Map">
+        select id, username, password, isadmin, state from blog_user
+    </select>
+
+    <update id="updateUser">
+        update blog_user set isadmin = #{isadmin}, state = #{state} where id = #{id}
+    </update>
+</mapper>

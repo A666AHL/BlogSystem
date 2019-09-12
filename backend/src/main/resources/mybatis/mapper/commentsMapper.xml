@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.login_check2.dao.commentsMapper">
+    <insert id="addComment">
+        insert into blog_comment(comment, writer, username2, title1, icon_url) values (#{comment}, #{writer}, #{username2}, #{title1}, #{icon_url})
+    </insert>
+
+    <select id="getComments" resultType="Map">
+        select comment, username2, icon_url from blog_comment where title1 = #{title} and writer = #{writer}
+    </select>
+
+    <delete id="deleteComment">
+        delete from blog_comment where username2 = #{username2} and comment = #{comment}
+    </delete>
+</mapper>

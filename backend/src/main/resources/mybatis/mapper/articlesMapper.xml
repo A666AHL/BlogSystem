@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.login_check2.dao.articlesMapper">
+
+    <insert id="insertArticle">
+        insert into blog_article(title, username1, description, article_url) values (#{title}, #{username1}, #{description}, #{article_url})
+    </insert>
+
+    <select id="getArticles" resultType="Map">
+        select title, description from blog_article where username1 = #{username} and state = 1
+    </select>
+
+    <select id="getAllArticles" resultType="Map">
+        select articleId, title, username1, isShared, state from blog_article
+    </select>
+
+    <select id="getShareArticles" resultType="Map">
+        select title, username1, description from blog_article where isShared = "true" and state = 1
+    </select>
+
+    <select id="getArticleUrl" resultType="String">
+        select article_url from blog_article where username1 = #{username} and title = #{title}
+    </select>
+
+    <delete id="deleteArticle">
+        delete from blog_article where username1 = #{username} and title = #{title}
+    </delete>
+
+    <select id="getIsShared" resultType="String">
+        select isShared from blog_article where username1 = #{username} and title = #{title} and state = 1
+    </select>
+
+    <update id="updateShare">
+        update blog_article set isShared = #{isShared} where username1 = #{username} and title = #{title}
+    </update>
+
+    <update id="updateArticle">
+        update blog_article set isShared = #{isShared}, state = #{state} where title = #{title} and username1 = #{username1}
+    </update>
+
+    <delete id="adminDeleteArticle">
+        delete from blog_article where articleId = #{articleId}
+    </delete>
+</mapper>
